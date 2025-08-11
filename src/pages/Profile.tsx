@@ -1,6 +1,6 @@
 import React from "react";
 import { useAuth } from "../context/AuthContext";
-import { profileMedia } from "../data/dummy";
+import { profileMedia, subscriptionPlans } from "../data/dummy";
 
 // Dummy stats mapped by user ID
 const statsByUserId = {
@@ -42,6 +42,10 @@ export const Profile = () => {
     );
   }
 
+  const plan = subscriptionPlans.find(
+    (p) => p.id === user?.subscriptionPlanId
+  );
+
   const stats = statsByUserId[user.id] || [];
   const media = profileMedia[user.id] || { video: "", gallery: [] };
 
@@ -71,12 +75,38 @@ export const Profile = () => {
               Logout
             </button>
           </div>
-          {user.bio && (
-            <p className="mt-4 text-gray-700">
-              {user.bio}
-            </p>
-          )}
+          {user.bio && <p className="mt-4 text-gray-700">{user.bio}</p>}
         </div>
+      </div>
+
+      {/* Subscription Status */}
+      <div className="bg-white p-6 rounded-lg shadow">
+        <h3 className="text-xl font-semibold mb-4 flex items-center justify-between">
+          Subscription Status
+          {plan ? (
+            <span className="inline-block bg-green-100 text-green-800 text-sm font-semibold px-3 py-1 rounded-full">
+              Active
+            </span>
+          ) : (
+            <span className="inline-block bg-red-100 text-red-800 text-sm font-semibold px-3 py-1 rounded-full">
+              Not Subscribed
+            </span>
+          )}
+        </h3>
+
+        {plan ? (
+          <div>
+            <h4 className="text-2xl font-bold mb-2">{plan.name}</h4>
+            <p className="text-lg text-gray-700 mb-4">{plan.price}</p>
+            <ul className="list-disc list-inside space-y-1 text-gray-600">
+              {plan.features.map((feature, idx) => (
+                <li key={idx}>{feature}</li>
+              ))}
+            </ul>
+          </div>
+        ) : (
+          <p className="text-gray-700">You currently have no active subscription plan.</p>
+        )}
       </div>
 
       {/* Stats */}
@@ -84,10 +114,7 @@ export const Profile = () => {
         <h3 className="text-xl font-semibold mb-4">Stats</h3>
         <div className="grid grid-cols-3 gap-4 text-center">
           {stats.map((stat, idx) => (
-            <div
-              key={idx}
-              className="bg-gray-100 p-4 rounded shadow-sm"
-            >
+            <div key={idx} className="bg-gray-100 p-4 rounded shadow-sm">
               <p className="text-2xl font-bold">{stat.value}</p>
               <p className="text-gray-500">{stat.label}</p>
             </div>
