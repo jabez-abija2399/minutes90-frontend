@@ -1,16 +1,33 @@
-import { Outlet, Link } from 'react-router-dom';
+// src/App.tsx
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
+import { Login } from './pages/Login';
+import { Profile } from './pages/Profile';
+import { ProtectedRoute } from './components/ProtectedRoute';
 
-export default function App() {
+export const App = () => {
   return (
-    <div>
-      <nav className="p-4 bg-gray-800 text-white flex gap-4">
-        <Link to="/">Feed</Link>
-        <Link to="/login">Login</Link>
-        <Link to="/admin">Admin</Link>
-      </nav>
-      <main className="p-4">
-        <Outlet />
-      </main>
-    </div>
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          {/* Public route */}
+          <Route path="/login" element={<Login />} />
+
+          {/* Protected route */}
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Default redirect */}
+          <Route path="*" element={<Login />} />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
-}
+};
