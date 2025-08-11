@@ -5,6 +5,7 @@ import { AuthProvider } from './context/AuthContext';
 import { Login } from './pages/Login';
 import { Profile } from './pages/Profile';
 import { ProtectedRoute } from './components/ProtectedRoute';
+import SocialFeed from "./pages/SocialFeed";
 
 export const App = () => {
   return (
@@ -23,6 +24,9 @@ export const App = () => {
               </ProtectedRoute>
             }
           />
+          
+
+             <Route path="/feed" element={<SocialFeed />} />
 
           {/* Default redirect */}
           <Route path="*" element={<Login />} />
