@@ -8,11 +8,13 @@ import { ProtectedRoute } from "./components/ProtectedRoute";
 import SocialFeed from "./pages/SocialFeed";
 import Messaging from "./pages/Messaging";
 import Subscription from "./pages/Subscription";
+import Navbar from "./components/Navbar";
 
 export const App = () => {
   return (
     <AuthProvider>
       <BrowserRouter>
+      <Navbar />
         <Routes>
           {/* Public route */}
           <Route path="/login" element={<Login />} />
