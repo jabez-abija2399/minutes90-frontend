@@ -36,68 +36,67 @@ export const Profile = () => {
 
   if (!user) {
     return (
-      <div className="max-w-md mx-auto mt-10 p-6 border rounded shadow">
+      <div className="max-w-md mx-auto mt-16 p-8 border rounded-lg shadow-md text-center text-gray-700">
         <p>No user data available.</p>
       </div>
     );
   }
 
-  const plan = subscriptionPlans.find(
-    (p) => p.id === user?.subscriptionPlanId
-  );
-
+  const plan = subscriptionPlans.find((p) => p.id === user?.subscriptionPlanId);
   const stats = statsByUserId[user.id] || [];
   const media = profileMedia[user.id] || { video: "", gallery: [] };
 
   return (
-    <div className="max-w-4xl mx-auto mt-10 p-6 space-y-6">
+    <div className="max-w-5xl mx-auto mt-12 p-6 space-y-8">
       {/* Profile Header */}
-      <div className="bg-white p-6 rounded-lg shadow flex flex-col md:flex-row items-center md:items-start gap-6">
-        {/* Profile Picture */}
+      <section className="bg-white p-8 rounded-lg shadow-md flex flex-col md:flex-row items-center md:items-start gap-8">
         <img
           src={user.avatar || "https://via.placeholder.com/150"}
-          alt={user.name}
-          className="w-32 h-32 rounded-full object-cover border-4 border-blue-500"
+          alt={`${user.name} avatar`}
+          className="w-36 h-36 rounded-full object-cover border-4 border-blue-600 shadow-md"
         />
 
-        {/* User Info */}
-        <div className="flex-1">
-          <div className="flex justify-between items-center">
+        <div className="flex-1 space-y-4">
+          <div className="flex justify-between items-start">
             <div>
-              <h2 className="text-3xl font-bold">{user.name}</h2>
-              <p className="text-gray-600">Role: {user.role}</p>
-              <p className="text-gray-600">Email: {user.email}</p>
+              <h1 className="text-4xl font-extrabold text-gray-900">{user.name}</h1>
+              <p className="text-sm text-gray-500 uppercase tracking-wide">{user.role}</p>
+              <p className="text-sm text-gray-500">{user.email}</p>
             </div>
+
             <button
               onClick={logout}
-              className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
+              className="ml-6 bg-red-600 hover:bg-red-700 text-white font-semibold px-5 py-2 rounded-md shadow-sm transition-colors"
             >
               Logout
             </button>
           </div>
-          {user.bio && <p className="mt-4 text-gray-700">{user.bio}</p>}
+
+          {user.bio && (
+            <p className="mt-2 text-gray-700 text-lg leading-relaxed max-w-xl">{user.bio}</p>
+          )}
         </div>
-      </div>
+      </section>
 
       {/* Subscription Status */}
-      <div className="bg-white p-6 rounded-lg shadow">
-        <h3 className="text-xl font-semibold mb-4 flex items-center justify-between">
-          Subscription Status
+      <section className="bg-white p-6 rounded-lg shadow-md">
+        <header className="flex items-center justify-between mb-6">
+          <h2 className="text-2xl font-semibold text-gray-800">Subscription Status</h2>
           {plan ? (
-            <span className="inline-block bg-green-100 text-green-800 text-sm font-semibold px-3 py-1 rounded-full">
+            <span className="inline-block bg-green-100 text-green-800 text-sm font-semibold px-4 py-1 rounded-full shadow-sm select-none">
               Active
             </span>
           ) : (
-            <span className="inline-block bg-red-100 text-red-800 text-sm font-semibold px-3 py-1 rounded-full">
+            <span className="inline-block bg-red-100 text-red-800 text-sm font-semibold px-4 py-1 rounded-full shadow-sm select-none">
               Not Subscribed
             </span>
           )}
-        </h3>
+        </header>
 
         {plan ? (
           <div>
-            <h4 className="text-2xl font-bold mb-2">{plan.name}</h4>
-            <p className="text-lg text-gray-700 mb-4">{plan.price}</p>
+            <h3 className="text-3xl font-bold text-gray-900 mb-2">{plan.name}</h3>
+            <p className="text-xl font-medium text-gray-700 mb-4">{plan.price}</p>
             <ul className="list-disc list-inside space-y-1 text-gray-600">
               {plan.features.map((feature, idx) => (
                 <li key={idx}>{feature}</li>
@@ -105,48 +104,58 @@ export const Profile = () => {
             </ul>
           </div>
         ) : (
-          <p className="text-gray-700">You currently have no active subscription plan.</p>
+          <p className="text-gray-600">You currently have no active subscription plan.</p>
         )}
-      </div>
+      </section>
 
       {/* Stats */}
-      <div className="bg-white p-6 rounded-lg shadow">
-        <h3 className="text-xl font-semibold mb-4">Stats</h3>
-        <div className="grid grid-cols-3 gap-4 text-center">
+      <section className="bg-white p-6 rounded-lg shadow-md">
+        <h2 className="text-2xl font-semibold mb-6 text-gray-800">Stats</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
           {stats.map((stat, idx) => (
-            <div key={idx} className="bg-gray-100 p-4 rounded shadow-sm">
-              <p className="text-2xl font-bold">{stat.value}</p>
-              <p className="text-gray-500">{stat.label}</p>
+            <div
+              key={idx}
+              className="bg-gray-50 p-6 rounded-lg shadow-inner border border-gray-200 flex flex-col justify-center"
+            >
+              <p className="text-3xl font-extrabold text-blue-600">{stat.value}</p>
+              <p className="mt-1 text-gray-500 uppercase tracking-wide">{stat.label}</p>
             </div>
           ))}
         </div>
-      </div>
+      </section>
 
       {/* Highlight Video */}
-      <div className="bg-white p-6 rounded-lg shadow">
-        <h3 className="text-xl font-semibold mb-4">Highlight Video</h3>
-        <iframe
-          src={media.video}
-          title="Highlight Video"
-          allowFullScreen
-          className="w-full h-64 rounded"
-        ></iframe>
-      </div>
+      {media.video && (
+        <section className="bg-white p-6 rounded-lg shadow-md">
+          <h2 className="text-2xl font-semibold mb-4 text-gray-800">Highlight Video</h2>
+          <div className="aspect-w-16 aspect-h-9 rounded overflow-hidden shadow">
+            <iframe
+              src={media.video}
+              title="Highlight Video"
+              allowFullScreen
+              className="w-full h-full"
+            ></iframe>
+          </div>
+        </section>
+      )}
 
       {/* Gallery */}
-      <div className="bg-white p-6 rounded-lg shadow">
-        <h3 className="text-xl font-semibold mb-4">Media Gallery</h3>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {media.gallery.map((img, idx) => (
-            <img
-              key={idx}
-              src={img}
-              alt={`Media ${idx + 1}`}
-              className="w-full h-40 object-cover rounded shadow-sm"
-            />
-          ))}
-        </div>
-      </div>
+      {media.gallery.length > 0 && (
+        <section className="bg-white p-6 rounded-lg shadow-md">
+          <h2 className="text-2xl font-semibold mb-6 text-gray-800">Media Gallery</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {media.gallery.map((img, idx) => (
+              <img
+                key={idx}
+                src={img}
+                alt={`Media ${idx + 1}`}
+                className="w-full h-40 object-cover rounded-lg shadow-sm border border-gray-200"
+                loading="lazy"
+              />
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 };
