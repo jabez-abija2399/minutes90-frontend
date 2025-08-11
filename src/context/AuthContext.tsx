@@ -6,10 +6,12 @@ export type Role = "Player" | "Club" | "Agent" | "Scout" | "Admin";
 
 // User shape
 export interface User {
+  id: number;
   password: string;
   name: string;
   email: string;
   role: Role;
+  avatar?: string; // Optional avatar for user profile
 }
 
 // Context shape
