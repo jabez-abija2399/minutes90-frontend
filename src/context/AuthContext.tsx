@@ -1,33 +1,35 @@
 // src/context/AuthContext.tsx
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
-// Define the shape of the user object stored after login
-type Role = 'Player' | 'Club' | 'Agent' | 'Scout' | 'Admin';
+// Define roles available
+export type Role = 'Player' | 'Club' | 'Agent' | 'Scout' | 'Admin';
 
-interface User {
+// User shape
+export interface User {
   name: string;
   email: string;
   role: Role;
 }
 
+// Context shape
 interface AuthContextType {
   user: User | null;
   login: (userData: User) => void;
   logout: () => void;
 }
 
+// Create React Context
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+// Provider component
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
 
-  const login = (userData: User) => {
-    setUser(userData); // Dummy login: just set user state
-  };
+  // Dummy login: set user state
+  const login = (userData: User) => setUser(userData);
 
-  const logout = () => {
-    setUser(null);
-  };
+  // Logout: clear user state
+  const logout = () => setUser(null);
 
   return (
     <AuthContext.Provider value={{ user, login, logout }}>
@@ -36,6 +38,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
+// Custom hook to use context safely
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) throw new Error('useAuth must be used within AuthProvider');
