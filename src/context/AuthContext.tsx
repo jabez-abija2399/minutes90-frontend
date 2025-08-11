@@ -1,11 +1,12 @@
 // src/context/AuthContext.tsx
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode } from "react";
 
 // Define roles available
-export type Role = 'Player' | 'Club' | 'Agent' | 'Scout' | 'Admin';
+export type Role = "Player" | "Club" | "Agent" | "Scout" | "Admin";
 
 // User shape
 export interface User {
+  password: string;
   name: string;
   email: string;
   role: Role;
@@ -41,6 +42,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 // Custom hook to use context safely
 export const useAuth = () => {
   const context = useContext(AuthContext);
-  if (!context) throw new Error('useAuth must be used within AuthProvider');
+  if (!context) throw new Error("useAuth must be used within AuthProvider");
   return context;
 };
