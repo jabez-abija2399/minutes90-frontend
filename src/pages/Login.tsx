@@ -1,8 +1,9 @@
-// src/pages/Login.tsx
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth, Role, User } from "../context/AuthContext";
 import { LoginForm } from "../components/LoginForm";
+
+// Dummy users list (unchanged)
 
 // Dummy users list
 const dummyUsers: User[] = [
@@ -12,6 +13,7 @@ const dummyUsers: User[] = [
   {id: 4, name: "Scout Smith", email: "test4@gmail.com", role: "Scout", password: "test123",avatar: "https://www.fcbarcelona.com/photo-resources/2025/08/10/0e44cdde-b97b-4b79-b9b4-2c7530ccc500/_MGA1712.jpg?width=640&height=400" },
   {id: 5, name: "Admin User", email: "admin@gmail.com", role: "Admin", password: "test123" ,avatar: "https://media.gettyimages.com/id/2179660084/photo/new-england-revolution-v-inter-miami-cf.jpg?s=1024x1024&w=gi&k=20&c=W1ukk4rhUQJRGBg91gvg7BrhH0KggexE8Uako5r6dIs="},
 ];
+
 
 export const Login = () => {
   const { login } = useAuth();
@@ -34,13 +36,25 @@ export const Login = () => {
   };
 
   return (
-    <div className="flex max-w-4xl mx-auto shadow-lg rounded-lg overflow-hidden">
-      <div className="w-1/2 bg-cover bg-center" style={{ backgroundImage: "url('https://source.unsplash.com/600x800/?nature')" }}>
-        <img src='/public/loginBg3.png' alt="Login Background" className="object-cover w-full h-full" />
-      </div>
-      <div className="w-1/2 bg-white p-8">
-        <h2 className="text-2xl font-bold mb-6">Login</h2>
-        <LoginForm onSubmit={onSubmit} />
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+      <div className="max-w-4xl w-full bg-white rounded-xl shadow-lg overflow-hidden flex flex-col md:flex-row">
+        {/* Left side image */}
+        <div
+          className="hidden md:block md:w-1/2 bg-cover bg-center"
+          style={{
+            backgroundImage:
+              "url('https://www.minutes90.com/images/login/loginBg1.png')",
+          }}
+          aria-label="Login Illustration"
+        />
+
+        {/* Right side form */}
+        <div className="w-full md:w-1/2 p-10 sm:p-12">
+          <h2 className="text-3xl font-extrabold text-gray-900 mb-8 text-center">
+            Welcome Back
+          </h2>
+          <LoginForm onSubmit={onSubmit} />
+        </div>
       </div>
     </div>
   );
