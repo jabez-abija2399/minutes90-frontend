@@ -91,3 +91,67 @@ export const dummyPosts: Post[] = [
     content: "Scouting report: Promising talent spotted at local game.",
   },
 ];
+
+
+export interface Message {
+  id: number;
+  sender: string;
+  text: string;
+  timestamp: string;
+}
+
+export interface Conversation {
+  id: number;
+  participants: string[]; // names
+  messages: Message[];
+}
+
+export const dummyConversations: Conversation[] = [
+  {
+    id: 1,
+    participants: ["Lionel Messi", "John Agent"],
+    messages: [
+      { id: 1, sender: "Lionel Messi", text: "Hey John, how’s the transfer going?", timestamp: "2025-08-10 09:30" },
+      { id: 2, sender: "John Agent", text: "Good! Almost finalized the deal.", timestamp: "2025-08-10 09:35" },
+    ],
+  },
+  {
+    id: 2,
+    participants: ["Scout Smith", "FC Barcelona"],
+    messages: [
+      { id: 1, sender: "Scout Smith", text: "Found a promising player in the academy.", timestamp: "2025-08-09 15:12" },
+      { id: 2, sender: "FC Barcelona", text: "Send me the stats and videos.", timestamp: "2025-08-09 15:20" },
+    ],
+  },
+];
+
+// src/data/subscriptionPlans.ts
+
+export interface Plan {
+  id: string;
+  name: string;
+  price: string; // e.g., "$9.99 / month"
+  features: string[];
+}
+
+export const subscriptionPlans: Plan[] = [
+  {
+    id: "basic",
+    name: "Basic Plan",
+    price: "$9.99 / month",
+    features: ["Access to player profiles", "Limited messaging"],
+  },
+  {
+    id: "pro",
+    name: "Pro Plan",
+    price: "$29.99 / month",
+    features: ["Unlimited messaging", "Advanced search filters", "Video uploads"],
+  },
+  {
+    id: "enterprise",
+    name: "Enterprise Plan",
+    price: "Contact us",
+    features: ["Dedicated support", "Custom features", "Admin dashboard access"],
+  },
+];
+
