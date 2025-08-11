@@ -6,11 +6,11 @@ import { LoginForm } from "../components/LoginForm";
 
 // Dummy users list
 const dummyUsers: User[] = [
-  { name: "Lionel Messi", email: "test1@gmail.com", role: "Player", password: "test123" },
-  { name: "FC Barcelona", email: "test2@fcbarcelona.com", role: "Club", password: "test123" },
-  { name: "John Agent", email: "test3@gmail.com", role: "Agent", password: "test123" },
-  { name: "Scout Smith", email: "test4@gmail.com", role: "Scout", password: "test123" },
-  { name: "Admin User", email: "admin@gmail.com", role: "Admin", password: "test123" },
+  {id: 1, name: "Lionel Messi", email: "test1@gmail.com", role: "Player", password: "test123" , avatar: "https://media.gettyimages.com/id/2179660084/photo/new-england-revolution-v-inter-miami-cf.jpg?s=1024x1024&w=gi&k=20&c=W1ukk4rhUQJRGBg91gvg7BrhH0KggexE8Uako5r6dIs="},
+  {id: 2, name: "FC Barcelona", email: "test2@gmail.com", role: "Club", password: "test123", avatar: "https://www.fcbarcelona.com/photo-resources/2025/08/10/0e44cdde-b97b-4b79-b9b4-2c7530ccc500/_MGA1712.jpg?width=640&height=400"},
+  {id: 3, name: "John Agent", email: "test3@gmail.com", role: "Agent", password: "test123",avatar: "https://www.fcbarcelona.com/photo-resources/2025/08/10/0e44cdde-b97b-4b79-b9b4-2c7530ccc500/_MGA1712.jpg?width=640&height=400" },
+  {id: 4, name: "Scout Smith", email: "test4@gmail.com", role: "Scout", password: "test123",avatar: "https://www.fcbarcelona.com/photo-resources/2025/08/10/0e44cdde-b97b-4b79-b9b4-2c7530ccc500/_MGA1712.jpg?width=640&height=400" },
+  {id: 5, name: "Admin User", email: "admin@gmail.com", role: "Admin", password: "test123" ,avatar: "https://media.gettyimages.com/id/2179660084/photo/new-england-revolution-v-inter-miami-cf.jpg?s=1024x1024&w=gi&k=20&c=W1ukk4rhUQJRGBg91gvg7BrhH0KggexE8Uako5r6dIs="},
 ];
 
 export const Login = () => {
